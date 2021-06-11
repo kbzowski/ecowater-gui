@@ -1,22 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import {useEffect, useState} from "react";
+import {auth} from "./api";
+import {config} from "./config"
+import {StatsPanel} from "./Stats";
 
 function App() {
+  const [isAuthenticated, setAuthenticated] = useState(false)
+
+  useEffect(() => {
+      const checkAuth = async () => {
+          await auth(config.email, config.password)
+          setAuthenticated(true);
+      }
+      checkAuth()
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container mx-auto">
+      <header>
+          {isAuthenticated && <StatsPanel></StatsPanel>}
       </header>
     </div>
   );

@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^4.0.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@use-it/interval": "^1.0.0",
+    "axios": "^0.21.1",
     "nw-react-scripts": "4.0.4",
+    "postcss": "^8.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "nw-react-scripts start",
-    "build": "nw-react-scripts build",
+    "dev": "yarn watch:css && nw-react-scripts start",
+    "build": "yarn watch:css && nw-react-scripts build",
     "test": "nw-react-scripts test",
-    "eject": "nw-react-scripts eject"
+    "eject": "nw-react-scripts eject",
+    "watch:css": "postcss src/tailwind.css -o src/main.css"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +53,14 @@
     "buildDir": "./build",
     "cacheDir": "./cache",
     "macIcns": "./src/logo.icns"
+  },
+  "window": {
+    "show": true,
+    "icon": "./icon.png"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.4"
   }
 }
