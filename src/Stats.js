@@ -39,6 +39,7 @@ export const StatsPanel = () => {
             <li>Remaining ion-exchange capacity: {data.capacity_remaining_percent}% (min: {data.average_exhaustion_percent}%)</li>
             <li>Salt level: {data.salt_level}%</li>
             <li>Out of salt estimate days: {data.out_of_salt_estimate_days}</li>
+            <li>Hardenss: {data.hardness?.toFixed(2)} ppm</li>
         </ul>
     </div>
     )

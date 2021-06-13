@@ -1,5 +1,5 @@
 import axios from "axios";
-import {galons_to_litres, Status} from "./helpers";
+import {galons_to_litres, grgal_to_ppm, Status} from "./helpers";
 
 const MAX_SALT_LEVEL = 50;      // Change it!
 let headers = {}
@@ -77,7 +77,7 @@ function get_status(status) {
 export async function get_stats(device) {
     const props = ['days_since_last_regen', 'treated_water_avail_gals', 'avg_daily_use_gals', 'regen_time_rem_secs',
         'capacity_remaining_percent', 'regen_status_enum', 'average_exhaustion_percent', 'out_of_salt_estimate_days',
-        'salt_level_tenths', 'gallons_used_today', 'current_water_flow_gpm'
+        'salt_level_tenths', 'gallons_used_today', 'current_water_flow_gpm', 'hardness_grains'
     ]
     const query = props.map(p => `names[]=${p}`).join('&')
     const data_response = await axios({
@@ -131,6 +131,11 @@ export async function get_stats(device) {
                 break;
             case "current_water_flow_gpm":
                 stats['current_water_flow'] = galons_to_litres(value);
+                break;
+            case "hardness_grains":
+                stats['hardness'] = grgal_to_ppm(value);
+                break;
+            default:
                 break;
         }
     }
